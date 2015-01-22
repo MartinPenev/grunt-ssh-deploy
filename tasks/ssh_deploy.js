@@ -143,7 +143,7 @@ module.exports = function(grunt) {
                     + '\n TO REMOTE: ' + options.deploy_path + '/releases/' + timestamp + '/');
 
                 client.scp(options.local_path, {
-                    path: options.deploy_path + '/releases/' + timestamp + '/'
+                    path: options.deploy_path// + '/releases/' + timestamp + '/'
                 }, function (err) {
                     if (err) {
                         grunt.log.errorlns(err);
@@ -197,9 +197,9 @@ module.exports = function(grunt) {
 
             async.series([
                 onBeforeDeploy,
-                createReleases,
+                //createReleases,
                 scpBuild,
-                updateSymlink,
+                //updateSymlink,
                 onAfterDeploy,
                 closeConnection
             ], function () {
