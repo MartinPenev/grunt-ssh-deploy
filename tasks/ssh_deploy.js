@@ -139,9 +139,13 @@ module.exports = function(grunt) {
 
             var scpBuild = function(callback) {
                 grunt.log.subhead('--------------- UPLOADING NEW BUILD');
-                grunt.log.debug('SCP FROM LOCAL: ' + options.local_path
-                    + '\n TO REMOTE: ' + options.deploy_path + '/releases/' + timestamp + '/');
-
+                grunt.log.subhead('SCP FROM LOCAL: ' + options.local_path
+                    + '\n TO REMOTE: ' + options.deploy_path);
+				if (!grunt.file.exists(options.local_path)) {
+                    grunt.log.subhead('--- NO FILES TO UPLOAD');
+					callback();
+					return;
+				}
                 client.scp(options.local_path, {
                     path: options.deploy_path// + '/releases/' + timestamp + '/'
                 }, function (err) {
